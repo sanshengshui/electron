@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "atom/browser/media/media_device_id_salt.h"
+#include "atom/browser/net/atom_cert_verifier.h"
 #include "atom/browser/net/url_request_context_getter.h"
 #include "base/memory/ref_counted_delete_on_sequence.h"
 #include "base/memory/weak_ptr.h"
@@ -41,6 +42,9 @@ class AtomBrowserContext
     : public base::RefCountedDeleteOnSequence<AtomBrowserContext>,
       public content::BrowserContext {
  public:
+  using CertVerifyProc =
+      base::RepeatingCallback<void(const VerifyRequestParams& request,
+                                   base::RepeatingCallback<void(int)>)>;
   // Get or create the BrowserContext according to its |partition| and
   // |in_memory|. The |options| will be passed to constructor when there is no
   // existing BrowserContext.
@@ -109,6 +113,10 @@ class AtomBrowserContext
     return weak_factory_.GetWeakPtr();
   }
 
+  void SetCertVerifyProc(CertVerifyProc proc);
+
+  CertVerifyProc cert_verify_proc() const { return cert_verify_proc_; }
+
  protected:
   AtomBrowserContext(const std::string& partition,
                      bool in_memory,
@@ -169,6 +177,8 @@ class AtomBrowserContext
   bool in_memory_ = false;
   bool use_cache_ = true;
   int max_cache_size_ = 0;
+
+  CertVerifyProc cert_verify_proc_;
 
   base::WeakPtrFactory<AtomBrowserContext> weak_factory_;
 
