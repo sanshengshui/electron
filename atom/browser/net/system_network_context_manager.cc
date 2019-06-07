@@ -178,6 +178,10 @@ SystemNetworkContextManager::CreateDefaultNetworkContextParams() {
   network_context_params->proxy_resolver_factory =
       ChromeMojoProxyResolverFactory::CreateWithSelfOwnedReceiver();
 
+#if !BUILDFLAG(DISABLE_FTP_SUPPORT)
+  network_context_params->enable_ftp_url_support = true;
+#endif
+
   return network_context_params;
 }
 
@@ -255,10 +259,6 @@ SystemNetworkContextManager::CreateNetworkContextParams() {
       atom::AtomBrowserClient::Get()->GetUserAgent();
 
   network_context_params->http_cache_enabled = false;
-
-#if !BUILDFLAG(DISABLE_FTP_SUPPORT)
-  network_context_params->enable_ftp_url_support = true;
-#endif
 
   network_context_params->primary_network_context = true;
 
