@@ -10,13 +10,13 @@ This patch can be removed once legacy ipc messages are no longer
 used.
 
 diff --git a/ipc/ipc_message_start.h b/ipc/ipc_message_start.h
-index 4d83cdf93aef66d3479c9a325e8241592d85359e..a03af8a4b9d370ae849d4fe61c805ecb525fe394 100644
+index ec19b740c8f27e2f8855d2ddbff5b33cd94d278e..79b1be79973aa875d860d797249f8c445ca1067a 100644
 --- a/ipc/ipc_message_start.h
 +++ b/ipc/ipc_message_start.h
-@@ -69,6 +69,7 @@ enum IPCMessageStart {
-   ExtensionWorkerMsgStart,
+@@ -70,6 +70,7 @@ enum IPCMessageStart {
    SubresourceFilterMsgStart,
    ChromeAppsMsgStart,
+   UnfreezableFrameMsgStart,
 +  ElectronMsgStart,
    LastIPCMsgStart  // Must come last.
  };
