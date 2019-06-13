@@ -493,6 +493,7 @@ static_library("electron_lib") {
       "//ui/events/platform/x11",
     ]
     configs += [ ":gio_unix" ]
+    configs += [ "//build/config/linux:x11" ]
     defines += [
       # Disable warnings for g_settings_list_schemas.
       "GLIB_DISABLE_DEPRECATION_WARNINGS",
