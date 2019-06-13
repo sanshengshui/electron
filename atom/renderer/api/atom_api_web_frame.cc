@@ -8,7 +8,6 @@
 #include <vector>
 
 #include "atom/common/api/api.mojom.h"
-#include "atom/common/api/api_messages.h"
 #include "atom/common/api/event_emitter_caller.h"
 #include "atom/common/native_mate_converters/blink_converter.h"
 #include "atom/common/native_mate_converters/callback.h"
@@ -108,8 +107,7 @@ class ScriptExecutionCallback : public blink::WebScriptExecutionCallback {
       } else {
         promise_.RejectWithErrorMessage(
             "Script failed to execute, this normally means an error "
-            "was thrown. Check the renderer console for the error."
-            "was thrown, check the renderer console for the error");
+            "was thrown. Check the renderer console for the error.");
       }
     } else {
       promise_.RejectWithErrorMessage(
