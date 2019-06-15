@@ -151,9 +151,6 @@ app._setDefaultAppPaths(packagePath)
 // Load the chrome devtools support.
 require('@electron/internal/browser/devtools')
 
-// Load the chrome extension support.
-require('@electron/internal/browser/chrome-extension')
-
 // Load protocol module to ensure it is populated on app ready
 require('@electron/internal/browser/api/protocol')
 
