@@ -501,11 +501,6 @@ void AtomBrowserClient::AppendExtraCommandLineSwitches(
   }
 #endif
 
-  if (delegate_) {
-    auto app_path = static_cast<api::App*>(delegate_)->GetAppPath();
-    command_line->AppendSwitchPath(switches::kAppPath, app_path);
-  }
-
   content::WebContents* web_contents = GetWebContentsFromProcessID(process_id);
   if (web_contents) {
     if (web_contents->GetVisibleURL().SchemeIs("devtools")) {
@@ -514,8 +509,6 @@ void AtomBrowserClient::AppendExtraCommandLineSwitches(
     auto* web_preferences = WebContentsPreferences::From(web_contents);
     if (web_preferences)
       web_preferences->AppendCommandLineSwitches(command_line);
-    SessionPreferences::AppendExtraCommandLineSwitches(
-        web_contents->GetBrowserContext(), command_line);
     if (CanUseCustomSiteInstance()) {
       command_line->AppendSwitch(
           switches::kDisableElectronSiteInstanceOverrides);

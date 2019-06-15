@@ -216,13 +216,8 @@ const char kCORSSchemes[] = "cors-schemes";
 // The browser process app model ID
 const char kAppUserModelId[] = "app-user-model-id";
 
-// The application path
-const char kAppPath[] = "app-path";
-
 // The command line switch versions of the options.
 const char kBackgroundColor[] = "background-color";
-const char kPreloadScript[] = "preload";
-const char kPreloadScripts[] = "preload-scripts";
 const char kNodeIntegration[] = "node-integration";
 const char kDisableRemoteModule[] = "disable-remote-module";
 const char kContextIsolation[] = "context-isolation";
@@ -241,10 +236,6 @@ const char kNodeIntegrationInWorker[] = "node-integration-in-worker";
 // Command switch passed to renderer process to control whether node
 // environments will be created in sub-frames.
 const char kNodeIntegrationInSubFrames[] = "node-integration-in-subframes";
-
-// Disable window resizing when HTML Fullscreen API is activated.
-const char kDisableHtmlFullscreenWindowResize[] =
-    "disable-html-fullscreen-window-resize";
 
 // Widevine options
 // Path to Widevine CDM binaries.
