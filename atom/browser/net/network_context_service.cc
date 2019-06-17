@@ -4,6 +4,10 @@
 
 #include "atom/browser/net/network_context_service.h"
 
+#include <memory>
+#include <string>
+#include <utility>
+
 #include "atom/browser/atom_browser_client.h"
 #include "atom/browser/browser_process_impl.h"
 #include "atom/browser/net/system_network_context_manager.h"
@@ -35,7 +39,7 @@ NetworkContextService::CreateNetworkContext() {
 
 class Foo : public network::mojom::CertVerifierClient {
  public:
-  Foo(AtomBrowserContext* browser_context)
+  explicit Foo(AtomBrowserContext* browser_context)
       : browser_context_(browser_context) {}
   ~Foo() override = default;
 
