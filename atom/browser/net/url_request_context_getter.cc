@@ -11,6 +11,7 @@
 #include "atom/browser/api/atom_api_protocol.h"
 #include "atom/browser/atom_browser_client.h"
 #include "atom/browser/atom_browser_context.h"
+#include "atom/browser/atom_browser_main_parts.h"
 #include "atom/browser/browser_process_impl.h"
 #include "atom/browser/net/about_protocol_handler.h"
 #include "atom/browser/net/asar/asar_protocol_handler.h"
@@ -130,13 +131,15 @@ URLRequestContextGetter::Handle::CreateMainRequestContextGetter(
     content::URLRequestInterceptorScopedVector protocol_interceptors) {
   DCHECK_CURRENTLY_ON(BrowserThread::UI);
   DCHECK(!main_request_context_getter_.get());
-  DCHECK(g_browser_process->io_thread());
+  DCHECK(AtomBrowserMainParts::Get()->browser_process()->io_thread());
 
   LazyInitialize();
   main_request_context_getter_ = new URLRequestContextGetter(
       this, protocol_handlers, std::move(protocol_interceptors));
-  g_browser_process->io_thread()->RegisterURLRequestContextGetter(
-      main_request_context_getter_.get());
+  AtomBrowserMainParts::Get()
+      ->browser_process()
+      ->io_thread()
+      ->RegisterURLRequestContextGetter(main_request_context_getter_.get());
   return main_request_context_getter_;
 }
 
@@ -252,13 +255,16 @@ URLRequestContextGetter::~URLRequestContextGetter() {
 
 void URLRequestContextGetter::NotifyContextShuttingDown() {
   DCHECK_CURRENTLY_ON(BrowserThread::IO);
-  DCHECK(g_browser_process->io_thread());
+  DCHECK(AtomBrowserMainParts::Get()->browser_process()->io_thread());
   DCHECK(context_handle_);
 
   if (context_shutting_down_)
     return;
 
-  g_browser_process->io_thread()->DeregisterURLRequestContextGetter(this);
+  AtomBrowserMainParts::Get()
+      ->browser_process()
+      ->io_thread()
+      ->DeregisterURLRequestContextGetter(this);
 
   context_shutting_down_ = true;
   context_handle_->resource_context_.reset();
