@@ -8,13 +8,15 @@
 #include <string>
 
 #include "atom/common/node_includes.h"
+#include "base/optional.h"
 
 namespace atom {
 
-v8::Maybe<bool> EmitDeprecationWarning(node::Environment* env,
-                                       std::string warning_msg,
-                                       std::string warning_type,
-                                       std::string warning_code);
+bool EmitDeprecationWarning(
+    node::Environment* env,
+    const std::string& warning_msg,
+    const base::Optional<std::string>& warning_type = base::nullopt,
+    const base::Optional<std::string>& warning_code = base::nullopt);
 
 }  // namespace atom
 

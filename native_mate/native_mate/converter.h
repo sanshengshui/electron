@@ -12,6 +12,7 @@
 #include <utility>
 #include <vector>
 
+#include "base/optional.h"
 #include "base/strings/string_piece.h"
 #include "gin/converter.h"
 #include "v8/include/v8.h"
